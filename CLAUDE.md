@@ -31,6 +31,7 @@ Everything lives in `game.js` (~300 lines), organized around a single game loop:
 - **Line clearing** (`clearLines`): scans bottom-to-top, removes full rows, unshifts empty rows at the top.
 - **Scoring**: `LINE_SCORES = [0, 100, 300, 500, 800]` multiplied by current level; hard drop adds 2 pts/cell traveled, soft drop adds 1 pt/row.
 - **Leveling**: level = max(`startLevel`, floor(lines/10)+1); `dropInterval = levelInterval(level)` = max(100, 1000 - (level - 1) * 90) ms. `startLevel` is chosen in the pause menu and applied by `init()`.
+- **Skins** (`SKINS`, `setSkin`): each skin defines `colors` (indexed 1–7, replacing the old global `COLORS`), `bg`, `grid` and a `drawBlock(ctx, px, py, color, size)` function. `drawBlock` wraps it in `save/restore` and applies alpha; `draw()`/`drawNext()` paint `skin.bg` themselves. The choice persists in `localStorage['tetris.skin']`; `setSkin` redraws immediately even when paused/game over.
 - **Ghost piece** (`ghostY`): projects the current piece straight down to its landing row, drawn at `globalAlpha = 0.2`.
 - Game over is triggered in `spawn()` when a freshly spawned piece immediately collides, firing `endGame()`.
 
@@ -42,4 +43,4 @@ Control flow: on load only `#start-screen` is shown (records table + Jugar butto
 
 ## Tunable constants (top of `game.js`)
 
-`COLS`, `ROWS`, `BLOCK`, `COLORS`, `LINE_SCORES`, `dropInterval`. If you change `COLS`, `ROWS`, or `BLOCK`, also update the `<canvas id="board">` `width`/`height` in `index.html` to match (`COLS × BLOCK` by `ROWS × BLOCK`).
+`COLS`, `ROWS`, `BLOCK`, `SKINS`, `LINE_SCORES`, `dropInterval`. If you change `COLS`, `ROWS`, or `BLOCK`, also update the `<canvas id="board">` `width`/`height` in `index.html` to match (`COLS × BLOCK` by `ROWS × BLOCK`).
