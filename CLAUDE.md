@@ -30,11 +30,11 @@ Everything lives in `game.js` (~300 lines), organized around a single game loop:
 - **Game loop** (`loop`, driven by `requestAnimationFrame`): accumulates elapsed time in `dropAccum` and drops the piece one row once `dropInterval` is exceeded, then calls `lockPiece()`.
 - **Line clearing** (`clearLines`): scans bottom-to-top, removes full rows, unshifts empty rows at the top.
 - **Scoring**: `LINE_SCORES = [0, 100, 300, 500, 800]` multiplied by current level; hard drop adds 2 pts/cell traveled, soft drop adds 1 pt/row.
-- **Leveling**: level increases every 10 lines; `dropInterval = max(100, 1000 - (level - 1) * 90)` ms.
+- **Leveling**: level = max(`startLevel`, floor(lines/10)+1); `dropInterval = levelInterval(level)` = max(100, 1000 - (level - 1) * 90) ms. `startLevel` is chosen in the pause menu and applied by `init()`.
 - **Ghost piece** (`ghostY`): projects the current piece straight down to its landing row, drawn at `globalAlpha = 0.2`.
 - Game over is triggered in `spawn()` when a freshly spawned piece immediately collides, firing `endGame()`.
 
-Control flow: `init()` builds the board, seeds `next`, calls `spawn()` (which promotes `next` to `current` and generates a new `next`), then starts the `loop`. Keyboard input (arrows, `X`/rotate, space/hard-drop, `P`/pause) is handled by a single `keydown` listener that mutates `current`/game state directly — there is no separate input abstraction layer.
+Control flow: `init()` builds the board, seeds `next`, calls `spawn()` (which promotes `next` to `current` and generates a new `next`), then starts the `loop`. Keyboard input (arrows, `X`/rotate, space/hard-drop, `P`/`Esc` toggle the `#pause-menu` overlay, which blocks all game input while `paused`) is handled by a single `keydown` listener that mutates `current`/game state directly — there is no separate input abstraction layer.
 
 ## Tunable constants (top of `game.js`)
 
