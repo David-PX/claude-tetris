@@ -154,7 +154,9 @@ kbd {
   color: #7aa2f7;
 }
 
-#restart-btn {
+#restart-btn,
+#start-btn,
+#save-btn {
   margin-top: 8px;
   background: #7aa2f7;
   color: #0f0f17;
@@ -168,11 +170,14 @@ kbd {
   transition: background 0.15s;
 }
 
-#restart-btn:hover {
+#restart-btn:hover,
+#start-btn:hover,
+#save-btn:hover {
   background: #9bbdff;
 }
 
-/* ---- Pausa ---- */
+/* ---- Records y pausa ---- */
+#start-title,
 #pause-title {
   font-size: 28px;
   font-weight: 800;
@@ -180,6 +185,98 @@ kbd {
   color: #7aa2f7;
 }
 
+.overlay-box {
+  max-height: 100%;
+  overflow-y: auto;
+  padding: 8px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.records {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 220px;
+}
+
+.records-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 13px;
+  color: #aaa;
+}
+
+.records-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+
+.records-list li.empty {
+  justify-content: center;
+  color: #555570;
+}
+
+.records-list li.highlight {
+  background: rgba(122, 162, 247, 0.2);
+  color: #7aa2f7;
+  font-weight: 700;
+}
+
+.records-stats,
+.record-msg {
+  font-size: 12px;
+  color: #7aa2f7;
+}
+
+.name-form {
+  display: flex;
+  gap: 8px;
+}
+
+#name-input {
+  width: 130px;
+  background: #1a1a25;
+  border: 1px solid #3a3a5a;
+  border-radius: 6px;
+  padding: 8px 10px;
+  color: #e0e0e0;
+  font-size: 14px;
+  user-select: text;
+}
+
+#name-input:focus {
+  outline: none;
+  border-color: #7aa2f7;
+}
+
+#save-btn {
+  margin-top: 0;
+  padding: 8px 16px;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: #555570;
+  font-size: 12px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.link-btn:hover {
+  color: #e57373;
+}
+
+/* ---- Pausa ---- */
 .menu-btn {
   width: 180px;
   background: #7aa2f7;
