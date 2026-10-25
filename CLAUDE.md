@@ -34,7 +34,11 @@ Everything lives in `game.js` (~300 lines), organized around a single game loop:
 - **Ghost piece** (`ghostY`): projects the current piece straight down to its landing row, drawn at `globalAlpha = 0.2`.
 - Game over is triggered in `spawn()` when a freshly spawned piece immediately collides, firing `endGame()`.
 
-Control flow: `init()` builds the board, seeds `next`, calls `spawn()` (which promotes `next` to `current` and generates a new `next`), then starts the `loop`. Keyboard input (arrows, `X`/rotate, space/hard-drop, `P`/pause) is handled by a single `keydown` listener that mutates `current`/game state directly — there is no separate input abstraction layer.
+Control flow: on load only `#start-screen` is shown (records table + Jugar button / Enter); `init()` (from Jugar, Enter or Reiniciar) builds the board, seeds `next`, calls `spawn()` (which promotes `next` to `current` and generates a new `next`), then starts the `loop`. Keyboard input (arrows, `X`/rotate, space/hard-drop, `P`/pause) is handled by a single `keydown` listener that mutates `current`/game state directly — there is no separate input abstraction layer.
+
+## High scores
+
+`/* ---- Records ---- */` in `game.js`: top 5 `{name, score, lines, maxCombo}` plus all-time `bestCombo`/`maxLines`, stored as one JSON object in `localStorage['tetris.records']` (all access in try/catch). `clearLines` tracks `combo`/`maxCombo` (consecutive locks that clear lines). `endGame()` persists the stats and shows `#name-form` if the score qualifies; the keydown listener ignores keys while an `<input>` is focused.
 
 ## Tunable constants (top of `game.js`)
 
